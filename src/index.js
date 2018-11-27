@@ -1,21 +1,19 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import 'semantic-ui-css/semantic.min.css'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import rootReducer from './reducers/todo'
 
-import NavBar from './components/NavBar'
-import Home from './containers/Home'
-import About from './containers/About'
+import AddTodo from './components/AddTodo';
+import TodoList from './containers/TodoList'
+
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(
-  <Router>
-    <Fragment>
-      <NavBar />
-      <Switch>
-        <Route path='/' exact component={Home} />
-        <Route path='/about' component={About} />
-      </Switch>
-    </Fragment>
-  </Router>,
+  <Provider store={store}>
+    <div>
+      <AddTodo />
+    </div>
+  </Provider>,
   document.getElementById('root')
 )
