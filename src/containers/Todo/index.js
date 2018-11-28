@@ -20,15 +20,30 @@ const Content = styled.div`
 
 const Text = styled.div`
   padding-left: 10px;
+  width: 300px;
+  word-wrap: break-word;
 `
 
 class Todo extends Component {
+  state = {
+    settings: false
+  }
   handleCheck = event => {
     this.props.toggleTodo(event.target.id)
   }
 
   handleDelete = event => {
     this.props.deleteTodo(event.target.id)
+  }
+
+  handleSettings = event => {
+    this.setState({settings: !this.state.settings})
+  }
+
+  showSettings = activate => {
+    if(activate) {
+      return <button className="ui inverted red button" onClick={this.handleDelete} id={this.props.id}>Delete</button>
+    }
   }
 
   render () {
@@ -39,7 +54,10 @@ class Todo extends Component {
             <input type="checkbox" onChange={this.handleCheck} checked={this.props.completed} id={this.props.id}/>
             <Text className="header"> {this.props.text} </Text>
           </Content>
-          <button className="ui inverted red button" onClick={this.handleDelete} id={this.props.id}>Delete</button>
+          <div>
+            <button onClick={this.handleSettings}>Settings</button>
+            {this.showSettings(this.state.settings)}
+          </div>
         </Item>
       </div>
     )
@@ -47,7 +65,6 @@ class Todo extends Component {
 }
 
 const mapStateToProps = state => ({
-  todos: state.todo
 })
 
 const mapDispatchToProps = dispatch => ({
