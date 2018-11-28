@@ -2,12 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addTodo } from '../../reducers/todo'
 
-
 class AddTodo extends Component {
   render () {
     return (
       <div>
-        <h1> ADDTODO </h1>
         <form onSubmit={e => {
             e.preventDefault()
             if (!this.input.value.trim()) {
@@ -16,8 +14,8 @@ class AddTodo extends Component {
             this.props.addTodo(this.input.value)
             this.input.value = ''
           }} >
-          <input ref={node => (this.input = node)} />
-          <button type="submit">Add Todo</button>
+          <div className="ui input"> <input placeholder='example: Go Buy Milk' ref={node => (this.input = node)} /> </div>
+          <button className="ui primary button" type="submit">Add Todo</button>
         </form>
       </div>
     )

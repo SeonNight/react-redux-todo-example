@@ -4,26 +4,25 @@ import { VisibilityFilters, setVisibility } from '../../reducers/visibility'
 
 class VisibleTodo extends Component {
   setVisibility = (event) => {
-    switch(event.target.id) {
-      default:
-      case '0':
-        this.props.setVisibility(VisibilityFilters.SHOW_ALL)
-        break;
-      case '1':
-        this.props.setVisibility(VisibilityFilters.SHOW_COMPLETED)
-        break;
-      case '2':
-        this.props.setVisibility(VisibilityFilters.SHOW_ACTIVE)
-        break;
+    this.props.setVisibility(event.target.id)
+  }
+
+  currentVisibility = (id) => {
+    if(id === this.props.visibility) {
+      return "ui active button"
+    } else {
+      return "ui button"
     }
   }
 
   render () {
-    return <div>
-      <button onClick={this.setVisibility} id='0'>SHOW ALL</button>
-      <button onClick={this.setVisibility} id='1'>SHOW COMPLETED</button>
-      <button onClick={this.setVisibility} id='2'>SHOW ACTIVE</button>
-    </div>
+    return (
+      <div className="ui buttons">
+        <button className={this.currentVisibility(VisibilityFilters.SHOW_ALL)} onClick={this.setVisibility} id={VisibilityFilters.SHOW_ALL}>SHOW ALL</button>
+        <button className={this.currentVisibility(VisibilityFilters.SHOW_COMPLETED)} onClick={this.setVisibility} id={VisibilityFilters.SHOW_COMPLETED}>SHOW COMPLETED</button>
+        <button className={this.currentVisibility(VisibilityFilters.SHOW_ACTIVE)} onClick={this.setVisibility} id={VisibilityFilters.SHOW_ACTIVE}>SHOW ACTIVE</button>
+      </div>
+    )
   }
 }
 
