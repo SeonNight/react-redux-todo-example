@@ -2,13 +2,20 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import { toggleTodo } from '../../reducers/todo'
+import { toggleTodo, deleteTodo } from '../../reducers/todo'
 
 
 const Item = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   padding: 10px;
+`
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `
 
 const Text = styled.div`
@@ -20,30 +27,32 @@ class Todo extends Component {
     this.props.toggleTodo(event.target.id)
   }
 
+  handleDelete = event => {
+    this.props.deleteTodo(event.target.id)
+  }
+
   render () {
     return (
       <div className="item">
         <Item className="content" >
-          <input type="checkbox" onChange={this.handleCheck} checked={this.props.completed} id={this.props.id}/>
-          <Text className="header"> {this.props.text} </Text>
+          <Content>
+            <input type="checkbox" onChange={this.handleCheck} checked={this.props.completed} id={this.props.id}/>
+            <Text className="header"> {this.props.text} </Text>
+          </Content>
+          <button className="ui inverted red button" onClick={this.handleDelete} id={this.props.id}>Delete</button>
         </Item>
       </div>
     )
   }
 }
 
-//
-//      <div>
-//        <input type="checkbox" onChange={this.handleCheck} checked={this.props.completed} id={this.props.id}/> {this.props.text}
-//      </div>
-
-//return <p> {this.props.id} {this.props.text} {this.props.completed? 'COMPLETED' : 'NOT-COMPLETED'} </p>
 const mapStateToProps = state => ({
   todos: state.todo
 })
 
 const mapDispatchToProps = dispatch => ({
-  toggleTodo: id => dispatch(toggleTodo(id))
+  toggleTodo: id => dispatch(toggleTodo(id)),
+  deleteTodo: id => dispatch(deleteTodo(id))
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Todo)
