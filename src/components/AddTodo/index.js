@@ -24,13 +24,9 @@ class AddTodo extends Component {
   }
 }
 
-const getVisibleTodos = (state, vis) => {
-  return state
-}
-
 const mapStateToProps = state => {
   return {
-    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+    todos: state.todos
   }
 }
 
