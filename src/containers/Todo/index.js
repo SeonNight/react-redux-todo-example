@@ -55,7 +55,7 @@ class Todo extends Component {
             <Text className="header"> {this.props.text} </Text>
           </Content>
           <div>
-            <button onClick={this.handleSettings}>Settings</button>
+            <button className="ui blue button" onClick={this.handleSettings}>Settings</button>
             {this.showSettings(this.state.settings)}
           </div>
         </Item>
