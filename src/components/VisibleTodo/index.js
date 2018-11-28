@@ -29,7 +29,7 @@ class VisibleTodo extends Component {
 
 const mapStateToProps = state => {
   return {
-    todos: state.todos
+    visibility: state.visibility
   }
 }
 
